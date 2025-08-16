@@ -1,6 +1,6 @@
 import { PaymentFormInputs, paymentFormSchema } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -17,7 +17,7 @@ const PaymentForm = () => {
   const router = useRouter();
 
   const handlePaymentForm: SubmitHandler<PaymentFormInputs> = (data) => {
-    
+    // handle payment logic here
   };
 
   return (
@@ -26,14 +26,17 @@ const PaymentForm = () => {
       onSubmit={handleSubmit(handlePaymentForm)}
     >
       <div className="flex flex-col gap-1">
-        <label htmlFor="cardHolder" className="text-xs text-gray-500 font-medium">
+        <label
+          htmlFor="cardHolder"
+          className="text-xs text-gray-500 font-medium"
+        >
           Name on card
         </label>
         <input
           className="border-b border-gray-200 py-2 outline-none text-sm"
           type="text"
           id="cardHolder"
-          placeholder="John Doe"
+          placeholder="Rahul Sharma"
           {...register("cardHolder")}
         />
         {errors.cardHolder && (
@@ -41,14 +44,17 @@ const PaymentForm = () => {
         )}
       </div>
       <div className="flex flex-col gap-1">
-        <label htmlFor="cardNumber" className="text-xs text-gray-500 font-medium">
+        <label
+          htmlFor="cardNumber"
+          className="text-xs text-gray-500 font-medium"
+        >
           Card Number
         </label>
         <input
           className="border-b border-gray-200 py-2 outline-none text-sm"
           type="text"
           id="cardNumber"
-          placeholder="123456789123"
+          placeholder="4111 1111 1111 1111"
           {...register("cardNumber")}
         />
         {errors.cardNumber && (
@@ -56,18 +62,23 @@ const PaymentForm = () => {
         )}
       </div>
       <div className="flex flex-col gap-1">
-        <label htmlFor="expirationDate" className="text-xs text-gray-500 font-medium">
+        <label
+          htmlFor="expirationDate"
+          className="text-xs text-gray-500 font-medium"
+        >
           Expiration Date
         </label>
         <input
           className="border-b border-gray-200 py-2 outline-none text-sm"
           type="text"
           id="expirationDate"
-          placeholder="01/32"
+          placeholder="08/29"
           {...register("expirationDate")}
         />
         {errors.expirationDate && (
-          <p className="text-xs text-red-500">{errors.expirationDate.message}</p>
+          <p className="text-xs text-red-500">
+            {errors.expirationDate.message}
+          </p>
         )}
       </div>
       <div className="flex flex-col gap-1">
@@ -78,17 +89,35 @@ const PaymentForm = () => {
           className="border-b border-gray-200 py-2 outline-none text-sm"
           type="text"
           id="cvv"
-          placeholder="123"
+          placeholder="987"
           {...register("cvv")}
         />
         {errors.cvv && (
           <p className="text-xs text-red-500">{errors.cvv.message}</p>
         )}
       </div>
-      <div className='flex items-center gap-2 mt-4'>
-        <Image src="/klarna.png" alt="klarna" width={50} height={25} className="rounded-md"/>
-        <Image src="/cards.png" alt="cards" width={50} height={25} className="rounded-md"/>
-        <Image src="/stripe.png" alt="stripe" width={50} height={25} className="rounded-md"/>
+      <div className="flex items-center gap-2 mt-4">
+        <Image
+          src="/klarna.png"
+          alt="klarna"
+          width={50}
+          height={25}
+          className="rounded-md"
+        />
+        <Image
+          src="/cards.png"
+          alt="cards"
+          width={50}
+          height={25}
+          className="rounded-md"
+        />
+        <Image
+          src="/stripe.png"
+          alt="stripe"
+          width={50}
+          height={25}
+          className="rounded-md"
+        />
       </div>
       <button
         type="submit"

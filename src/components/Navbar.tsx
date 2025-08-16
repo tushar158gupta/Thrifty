@@ -28,7 +28,9 @@ const Navbar = () => {
         </Link>
         <Bell className="w-4 h-4 text-gray-600" />
         <ShoppingCartIcon />
-        <Link href="/login">Sign in</Link>
+        <Link href="https://www.linkedin.com/in/tushar-gupta-10a151202">
+          Sign in
+        </Link>
       </div>
     </nav>
   );
