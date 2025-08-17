@@ -1,109 +1,44 @@
 // src/app/products/[id]/page.tsx
 
-import ProductInteraction from "@/components/ProductInteraction";
-import { ProductType } from "@/types";
-import Image from "next/image";
+import React from "react";
 
-const product: ProductType = {
-  id: 1,
-  name: "Adidas CoreFit T-Shirt",
-  shortDescription:
-    "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-  description:
-    "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-  price: 59.9,
-  sizes: ["xs", "s", "m", "l", "xl"],
-  colors: ["gray", "purple", "green"],
-  images: {
-    gray: "/products/1g.png",
-    purple: "/products/1p.png",
-    green: "/products/1gr.png",
-  },
-};
-
-// ✅ metadata typing
-export const generateMetadata = async ({
-  params,
-}: {
-  params: { id: string };
-}) => {
-  return {
-    title: product.name,
-    description: product.description,
-  };
-};
-
-// ✅ FIXED: no Promise in params/searchParams
-const ProductPage = ({
+// ✅ Correct way to type params in Next.js App Router
+export default async function ProductPage({
   params,
   searchParams,
 }: {
   params: { id: string };
   searchParams?: { color?: string; size?: string };
-}) => {
-  const { size, color } = searchParams || {};
+}) {
+  // Example fetching product details with ID
+  const productId = params.id;
+  const color = searchParams?.color;
+  const size = searchParams?.size;
 
-  const selectedSize = size || product.sizes[0];
-  const selectedColor = color || product.colors[0];
+  // Mock product fetching (replace with your API call)
+  const product = {
+    id: productId,
+    name: "Sample Product",
+    description: "This is a sample product description.",
+    price: "$49.99",
+    color: color ?? "Default",
+    size: size ?? "M",
+  };
 
   return (
-    <div className="flex flex-col gap-4 lg:flex-row md:gap-12 mt-12">
-      {/* IMAGE */}
-      <div className="w-full lg:w-5/12 relative aspect-[2/3]">
-        <Image
-          src={product.images[selectedColor]}
-          alt={product.name}
-          fill
-          className="object-contain rounded-md"
-        />
-      </div>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold">{product.name}</h1>
+      <p className="mt-2 text-gray-700">{product.description}</p>
+      <p className="mt-2 text-lg font-semibold">{product.price}</p>
 
-      {/* DETAILS */}
-      <div className="w-full lg:w-7/12 flex flex-col gap-4">
-        <h1 className="text-2xl font-medium">{product.name}</h1>
-        <p className="text-gray-500">{product.description}</p>
-        <h2 className="text-2xl font-semibold">₹{product.price.toFixed(2)}</h2>
-
-        <ProductInteraction
-          product={product}
-          selectedSize={selectedSize}
-          selectedColor={selectedColor}
-        />
-
-        {/* CARD INFO */}
-        <div className="flex items-center gap-2 mt-4">
-          <Image
-            src="/klarna.png"
-            alt="klarna"
-            width={50}
-            height={25}
-            className="rounded-md"
-          />
-          <Image
-            src="/cards.png"
-            alt="cards"
-            width={50}
-            height={25}
-            className="rounded-md"
-          />
-          <Image
-            src="/stripe.png"
-            alt="stripe"
-            width={50}
-            height={25}
-            className="rounded-md"
-          />
-        </div>
-
-        <p className="text-gray-500 text-xs">
-          By clicking Pay Now, you agree to our{" "}
-          <span className="underline hover:text-black">Terms & Conditions</span>{" "}
-          and <span className="underline hover:text-black">Privacy Policy</span>
-          .
+      <div className="mt-4">
+        <p>
+          <span className="font-medium">Color:</span> {product.color}
+        </p>
+        <p>
+          <span className="font-medium">Size:</span> {product.size}
         </p>
       </div>
     </div>
   );
-};
-
-export default ProductPage;
+}
